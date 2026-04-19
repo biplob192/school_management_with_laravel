@@ -27,10 +27,11 @@ class RolesAndPermissionsSeeder extends Seeder
         // Role::create(['name' => 'Employee', 'guard_name' => 'web']);
         // Role::create(['name' => 'User', 'guard_name' => 'web']);
 
-        $superAdminRole = Role::create(['name' => 'Super Admin']);
-        $adminRole      = Role::create(['name' => 'Admin']);
-        $teacherRole    = Role::create(['name' => 'Teacher']);
-        $studentRole    = Role::create(['name' => 'Student']);
+        $superAdminRole  = Role::create(['name' => 'Super Admin']);
+        $adminRole       = Role::create(['name' => 'Admin']);
+        $schoolAdminRole = Role::create(['name' => 'School Admin']);
+        $teacherRole     = Role::create(['name' => 'Teacher']);
+        $studentRole     = Role::create(['name' => 'Student']);
 
 
         // Permissions
@@ -45,6 +46,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $updatePermission           = Permission::create(['name' => 'update']);
         $deletePermission           = Permission::create(['name' => 'delete']);
         $createAdminPermission      = Permission::create(['name' => 'create.admin']);
+        $createTeacherPermission    = Permission::create(['name' => 'create.teacher']);
         $createSuperAdminPermission = Permission::create(['name' => 'create.super_admin']);
 
         // Assign permissions to super_admin role
@@ -53,6 +55,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $superAdminRole->givePermissionTo($updatePermission);
         $superAdminRole->givePermissionTo($deletePermission);
         $superAdminRole->givePermissionTo($createAdminPermission);
+        $superAdminRole->givePermissionTo($createTeacherPermission);
         $superAdminRole->givePermissionTo($createSuperAdminPermission);
 
         // Assign permissions to admin role
@@ -61,6 +64,13 @@ class RolesAndPermissionsSeeder extends Seeder
         $adminRole->givePermissionTo($updatePermission);
         $adminRole->givePermissionTo($deletePermission);
         $adminRole->givePermissionTo($createAdminPermission);
+
+        // Assign permissions to school admin role
+        $schoolAdminRole->givePermissionTo($createPermission);
+        $schoolAdminRole->givePermissionTo($readPermission);
+        $schoolAdminRole->givePermissionTo($updatePermission);
+        $schoolAdminRole->givePermissionTo($deletePermission);
+        $schoolAdminRole->givePermissionTo($createTeacherPermission);
 
         // Assign permissions to teacher role
         $teacherRole->givePermissionTo($createPermission);
